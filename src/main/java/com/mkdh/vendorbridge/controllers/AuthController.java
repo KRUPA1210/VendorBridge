@@ -28,4 +28,7 @@ public class AuthController {
         CreateUserResponseDto createUserResponseDto = userMapper.toDto(createdUser);
         return new ResponseEntity<>(createUserResponseDto, HttpStatus.CREATED);
     }
+
+    
+
 }
