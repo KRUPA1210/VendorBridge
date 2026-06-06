@@ -58,6 +58,9 @@ public class UserServiceImpl implements UserService {
         user.setUserName(createUserRequest.getUserName());
         user.setEmail(createUserRequest.getEmail());
         user.setPassword(passwordEncoder.encode(createUserRequest.getPassword()));
+        user.setPhoneNo("0000000000");
+        user.setCountry("IN");
+        user.setIsVerified(false);
         user.getRoles().add(UserRole.USER);
 
         user.setVerifyCode(verifyCode);
@@ -98,6 +101,8 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setIsVerified(true);
+        user.setVerifyCode(null);
+        user.setVerifyCodeExpiry(null);
         userRepository.save(user);
     }
 
@@ -107,7 +112,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
         log.info("User found");
 
-        if (!user.getIsVerified()) {
+        if (!Boolean.TRUE.equals(user.getIsVerified())) {
             throw new RuntimeException("Please verify your account");
         }
         log.info("User is verified");

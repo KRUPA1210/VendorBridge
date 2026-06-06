@@ -29,7 +29,7 @@ public class EmailUtils {
 
         try {
             CreateEmailResponse data = resend.emails().send(params);
-            System.out.println(data.getId());
+            log.info("Email sent successfully: {}", data.getId());
         } catch (ResendException e) {
             log.info("Error sending email: {}", e.getMessage());
         }

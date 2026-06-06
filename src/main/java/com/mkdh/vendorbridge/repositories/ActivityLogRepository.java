@@ -8,12 +8,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
 public interface ActivityLogRepository extends JpaRepository<ActivityLog, UUID> {
 
     Page<ActivityLog> findByEntityId(UUID entityId, Pageable pageable);
+
+    Page<ActivityLog> findByEntityIdIn(List<UUID> entityIds, Pageable pageable);
 
     @Query("SELECT a FROM ActivityLog a WHERE " +
            "(:entityType IS NULL OR a.entityType = :entityType) AND " +
@@ -26,8 +29,8 @@ public interface ActivityLogRepository extends JpaRepository<ActivityLog, UUID> 
     @Query("SELECT a FROM ActivityLog a WHERE a.entityType = 'RFQ' AND a.entityId = :rfqId")
     Page<ActivityLog> findByRfqId(@Param("rfqId") UUID rfqId, Pageable pageable);
 
-    @Query("SELECT a FROM ActivityLog a WHERE a.performedBy.id = :vendorId OR a.targetUser.id = :vendorId")
-    Page<ActivityLog> findByVendorId(@Param("vendorId") UUID vendorId, Pageable pageable);
+    @Query("SELECT a FROM ActivityLog a WHERE a.performedBy.id = :userId OR a.targetUser.id = :userId")
+    Page<ActivityLog> findByUserInvolvement(@Param("userId") UUID userId, Pageable pageable);
 
     // Notifications for a specific user
     @Query("SELECT a FROM ActivityLog a WHERE a.targetUser.id = :userId " +
