@@ -1,0 +1,8 @@
+{
+  "name": "VendorBridge",
+  "description": "A high-performance Procurement & Vendor Management ERP Dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
