@@ -4,6 +4,8 @@ import com.mkdh.vendorbridge.domain.CreateUserRequest;
 import com.mkdh.vendorbridge.domain.dtos.CreateUserRequestDto;
 import com.mkdh.vendorbridge.domain.dtos.CreateUserResponseDto;
 import com.mkdh.vendorbridge.domain.entities.User;
+import com.mkdh.vendorbridge.mappers.UserMapper;
+import com.mkdh.vendorbridge.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
+
+    private final UserMapper userMapper;
+    private final UserService userService;
 
     //Create new user
     @PostMapping(path = "/create")
